@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html ng-app="BuildMeABudget">
+
+<head>
+    <title>Build Me A Budget</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="index.js"></script>
+    <script src="category.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+
+<body ng-controller="BudgetController">
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top text-center">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse">
+                    <a class="navbar-brand pull-right" href="#">Help</a>
+                    <h3 ng-show="PreTaxIncome"><span>{{totalPercentage}}% Allocated</span> of ${{PreTaxIncome | number:0}} gross income</h3>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel panel-header">
+                <h1 class="text-center">Build Me A Budget</h1>
+            </div>
+            <div class="panel-body">
+                <form name="BudgetForm">
+                    <div class="form-group">
+                        <input name="PreTaxIncome" class="form-control" ng-model="PreTaxIncome" type="number" placeholder="Gross Annual Income (before taxes)" required>
+                    </div>
+                </form>
+                <div ng-show="PreTaxIncome" class="row">
+                    <div class="col-md-12 text-center">
+                        <span class="h2">Net Income: ${{PostTaxIncome() | number : 0}}</span>
+                    </div>
+                </div>
+                <div ng-show="PreTaxIncome" class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <span class="h2 pull-left">Monthly Income: ${{ monthlyIncome(PostTaxIncome()) | number: 0 }}</span>
+                        <span class="h2 pull-right">Biweekly Income: ${{ biweeklyIncome(PostTaxIncome()) | number: 0 }}</span>
+                    </div>
+                </div>
+                <div>
+                    <div ng-repeat="expense in expenses">
+                        <div ng-show="PreTaxIncome" class="row">
+                            <div class="col-md-12">
+                                <h3>{{expense.category}} - {{expense.percentage}}%
+                                <button type="button" class="btn btn-default btn-xs" ng-click="hint = !hint">?</button>
+                                <button type="button" class="btn btn-default btn-xs" ng-click="increase(expense)">+</button>
+                                <button type="button" class="btn btn-default btn-xs" ng-click="decrease(expense)">-</button>
+                                <span class="pull-right">
+                                <button type="button" class="btn btn-default btn-xs" ng-click="expense.yearly = !expense.yearly"     ng-class="{'btn-success': expense.yearly == true, 'btn-danger': expense.yearly == false}">Yearly</button>
+                                <button type="button" class="btn btn-default btn-xs" ng-click="expense.monthly = !expense.monthly"   ng-class="{'btn-success': expense.monthly == true, 'btn-danger': expense.monthly == false}">Monthly</button>
+                                <button type="button" class="btn btn-default btn-xs" ng-click="expense.biweekly = !expense.biweekly" ng-class="{'btn-success': expense.biweekly == true, 'btn-danger': expense.biweekly == false}">Biweekly</button>
+                                <button type="button" class="btn btn-default btn-xs" ng-click="expense.weekly = !expense.weekly"     ng-class="{'btn-success': expense.weekly == true, 'btn-danger': expense.weekly == false}">Weekly</button>
+                                </span></h3>
+                                <div ng-show="hint" class="well well-sm">{{expense.description}}</div>
+                            </div>
+                        </div>
+                        <div ng-show="PreTaxIncome" class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <table class="table table-bordered table-hover table-condensed">
+                                    <tr ng-show="expense.yearly">
+                                        <td>Yearly</td>
+                                        <td class="text-center">${{ yearly(PostTaxIncome(), expense.percentage) | number:0}}</td>
+                                    </tr>
+                                    <tr ng-show="expense.monthly">
+                                        <td>Monthly</td>
+                                        <td class="text-center">${{ monthly(PostTaxIncome(), expense.percentage) | number:0}}</td>
+                                    </tr>
+                                    <tr ng-show="expense.biweekly">
+                                        <td>Biweekly</td>
+                                        <td class="text-center">${{ biweekly(PostTaxIncome(), expense.percentage) | number:0}}</td>
+                                    </tr>
+                                    <tr ng-show="expense.weekly">
+                                        <td>Weekly</td>
+                                        <td class="text-center">${{ weekly(PostTaxIncome(), expense.percentage) | number:0}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

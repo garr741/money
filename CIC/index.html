@@ -1,0 +1,54 @@
+<!doctype html>
+<html ng-app="CompoundInterestCalculator">
+
+<head>
+    <title>Compound Interest Calculator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="index.js"></script>
+    <script src="bower_components/n3-line-chart/build/line-chart.min.js"></script>
+    <script src="bower_components/d3/d3.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+
+<body ng-controller="CICController">
+    <div class="container">
+        <div class="container">
+            <nav class="navbar navbar-default navbar-fixed-top text-center">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse">
+                        <a class="navbar-brand pull-right" href="#">Help</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel panel-header">
+                <h1 class="text-center">{{title}}</h1>
+            </div>
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <label for="PrincipalAmount">Starting Amount</label>
+                        <input type="number" class="form-control" placeholder="Initial Deposit" id="PrincipalAmount" ng-model="P">
+                    </div>
+                    <div class="form-group">
+                        <label for="InterestRate">Interest Rate</label>
+                        <input type="number" class="form-control" placeholder="Annual Interest Rate (8 = 8% interest)" id="InterestRate" ng-model="r">
+                    </div>
+                    <div class="form-group">
+                        <label for="NumberOfYears">Number of Years</label>
+                        <input type="number" class="form-control" placeholder="The number of years the money is invested" id="NumberOfYears" ng-model="y">
+                    </div>
+                    <div class="form-group">
+                        <label for="AnnualContribution">Annual Contribution</label>
+                        <input type="number" class="form-control" placeholder="The amount added to the account, yearly" id="AnnualContribution" ng-model="c">
+                    </div>
+                </form>
+                <h2 class="text-center">{{FV() | currency}}</h2>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
