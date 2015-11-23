@@ -5,10 +5,10 @@
     <title>Compound Interest Calculator</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
     <script src="index.js"></script>
-    <script src="bower_components/n3-line-chart/build/line-chart.min.js"></script>
-    <script src="bower_components/d3/d3.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="index.css">
+    <script src="bower_components/Chart.js/Chart.min.js"></script>
+    <script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
 </head>
 
 <body ng-controller="CICController">
@@ -45,7 +45,12 @@
                         <input type="number" class="form-control" placeholder="The amount added to the account, yearly" id="AnnualContribution" ng-model="c">
                     </div>
                 </form>
-                <h2 class="text-center">{{FV() | currency}}</h2>
+                <h2 class="text-center">{{FV(P, r, y, c) | currency}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <canvas id="doughnut" class="chart chart-doughnut" chart-data="data" chart-labels="labels"></canvas> 
             </div>
         </div>
     </div>

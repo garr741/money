@@ -1,4 +1,4 @@
-angular.module('BuildMeABudget').service('Category', function(){
+angular.module('BuildMeABudget').factory('Category', ['$rootScope', function($rootScope){
 	var category;
 	var description;
 	var percentage;
@@ -67,4 +67,4 @@ angular.module('BuildMeABudget').service('Category', function(){
 
 	return Category;
 
-});
+}]);
