@@ -2,8 +2,14 @@ var app = angular.module('CompoundInterestCalculator', ['chart.js']);
 
 app.controller('CICController', ['$scope', '$filter', function($scope, $filter) {
     $scope.title = "Compound Interest Calculator";
-    $scope.FV = function(P, r, y,c){
-        return futureValue(P,r,y,c);
+
+    Chart.defaults.global.colours = [
+        '#46BFBD', // green
+        '#F7464A', // red
+    ];
+
+    $scope.FV = function(P, r, y, c) {
+        return futureValue(P, r, y, c);
     }
 
     var futureValue = function(P, r, y, c) {
@@ -13,38 +19,38 @@ app.controller('CICController', ['$scope', '$filter', function($scope, $filter) 
         return Math.floor(result);
     }
 
-    $scope.YearList = [0,1,2,3,4];
+    $scope.YearList = [0, 1, 2, 3, 4];
     $scope.AmountInvestedList = [0];
     $scope.TotalAmountList = [0];
 
     $scope.labels = $scope.YearList;
-    $scope.series = ['Amount Invested', 'Total Amount'];
-    $scope.data = [$scope.AmountInvestedList, $scope.TotalAmountList]
+    $scope.series = ['Total Amount', 'Amount Invested'];
+    $scope.data = [$scope.TotalAmountList, $scope.AmountInvestedList]
 
     $scope.onClick = function(points, evt) {
         console.log(points, evt);
     };
 
-    var listOfTotalAmountInvested = function(){
+    var listOfTotalAmountInvested = function() {
         var results = [];
-        for (var i = 0; i<=$scope.y; i++) {
+        for (var i = 0; i <= $scope.y; i++) {
             results.push($scope.c * i);
         };
         return results;
     }
 
-    var listOfYears = function(){
+    var listOfYears = function() {
         var results = [];
         var a = $scope.y;
-        for  (var i = 1; i<=a+1; i++){
+        for (var i = 1; i <= a + 1; i++) {
             results.push(i)
         }
         return results;
     }
 
-    var listOfTotalAmount = function(){
+    var listOfTotalAmount = function() {
         var results = [];
-        for (var i=0; i<=$scope.y; i++){
+        for (var i = 0; i <= $scope.y; i++) {
             results.push(futureValue($scope.P, $scope.r, i, $scope.c))
         }
         return results;
@@ -62,8 +68,8 @@ app.controller('CICController', ['$scope', '$filter', function($scope, $filter) 
         updateGraphInfo()
     });
 
-    var updateGraphInfo = function(){
-        $scope.data = [listOfTotalAmountInvested(), listOfTotalAmount()];
+    var updateGraphInfo = function() {
+        $scope.data = [listOfTotalAmount(), listOfTotalAmountInvested()];
         $scope.labels = listOfYears();
     }
 
