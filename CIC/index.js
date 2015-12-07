@@ -27,7 +27,7 @@ app.controller('CICController', ['$scope', '$filter', function($scope, $filter) 
 
     var listOfTotalAmountInvested = function(){
         var results = [];
-        for (var i = 0; i < $scope.y; i++) {
+        for (var i = 0; i<=$scope.y; i++) {
             results.push($scope.c * i);
         };
         return results;
@@ -36,7 +36,7 @@ app.controller('CICController', ['$scope', '$filter', function($scope, $filter) 
     var listOfYears = function(){
         var results = [];
         var a = $scope.y;
-        for  (var i = 1; i<=a; i++){
+        for  (var i = 1; i<=a+1; i++){
             results.push(i)
         }
         return results;
@@ -44,7 +44,7 @@ app.controller('CICController', ['$scope', '$filter', function($scope, $filter) 
 
     var listOfTotalAmount = function(){
         var results = [];
-        for (var i=0; i<$scope.y; i++){
+        for (var i=0; i<=$scope.y; i++){
             results.push(futureValue($scope.P, $scope.r, i, $scope.c))
         }
         return results;
