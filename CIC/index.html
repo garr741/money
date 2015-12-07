@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="index.css">
     <script src="bower_components/Chart.js/Chart.min.js"></script>
     <script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+    <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css" />
 </head>
 
 <body ng-controller="CICController">
@@ -49,8 +50,9 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <canvas id="doughnut" class="chart chart-doughnut" chart-data="data" chart-labels="labels"></canvas> 
+            <div class="col-md-10 col-md-offset-1">
+                <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-legend="true" chart-series="series" chart-click="onClick">
+                </canvas>
             </div>
         </div>
     </div>
