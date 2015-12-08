@@ -29,7 +29,7 @@
             <div class="col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel panel-header">
-                        <h1 class="text-center">Build Me A Budget</h1>
+                        <h2 class="text-center">Build Me A Budget</h2>
                     </div>
                     <div class="panel-body">
                         <form name="BudgetForm">
@@ -39,19 +39,21 @@
                         </form>
                         <div ng-show="PreTaxIncome" class="row">
                             <div class="row">
-                                <h2 class="text-center">Income Breakdown</h2>
-                                <table class="table">
-                                    <th class="text-center">Yearly</th>
-                                    <th class="text-center">Monthly</th>
-                                    <th class="text-center">Biweekly</th>
-                                    <th class="text-center">Weekly</th>
-                                    <tr>
-                                        <td class="text-center">{{PostTaxIncome() | currency }}</td>
-                                        <td class="text-center">{{monthlyIncome(PostTaxIncome()) | currency }}</td>
-                                        <td class="text-center">{{biweeklyIncome(PostTaxIncome()) | currency }}</td>
-                                        <td class="text-center">{{weeklyIncome(PostTaxIncome()) | currency }}</td>
-                                    </tr>
-                                </table>
+                                <div class="col-xs-12">
+                                    <h2 class="text-center">Income Breakdown</h2>
+                                    <table class="table">
+                                        <th class="text-center">Yearly</th>
+                                        <th class="text-center">Monthly</th>
+                                        <th class="text-center">Biweekly</th>
+                                        <th class="text-center">Weekly</th>
+                                        <tr>
+                                            <td class="text-center">{{PostTaxIncome() | currency }}</td>
+                                            <td class="text-center">{{monthlyIncome(PostTaxIncome()) | currency }}</td>
+                                            <td class="text-center">{{biweeklyIncome(PostTaxIncome()) | currency }}</td>
+                                            <td class="text-center">{{weeklyIncome(PostTaxIncome()) | currency }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div ng-show="PreTaxIncome" class="container">
@@ -65,16 +67,18 @@
                         <div ng-repeat="expense in expenses">
                             <div ng-show="PreTaxIncome" class="row">
                                 <div class="col-xs-12">
-                                    <h3>{{expense.category}} - {{expense.percentage}}%
-                                <button type="button" class="btn btn-default btn-xs" ng-click="hint = !hint">?</button>
-                                <button type="button" class="btn btn-default btn-xs" ng-click="increase(expense)">+</button>
-                                <button type="button" class="btn btn-default btn-xs" ng-click="decrease(expense)">-</button>
-                                <span class="pull-right">
-                                <button type="button" class="btn btn-default btn-xs" ng-click="expense.yearly = !expense.yearly"     ng-class="{'btn-success': expense.yearly == true, 'btn-danger': expense.yearly == false}">Yearly</button>
-                                <button type="button" class="btn btn-default btn-xs" ng-click="expense.monthly = !expense.monthly"   ng-class="{'btn-success': expense.monthly == true, 'btn-danger': expense.monthly == false}">Monthly</button>
-                                <button type="button" class="btn btn-default btn-xs" ng-click="expense.biweekly = !expense.biweekly" ng-class="{'btn-success': expense.biweekly == true, 'btn-danger': expense.biweekly == false}">Biweekly</button>
-                                <button type="button" class="btn btn-default btn-xs" ng-click="expense.weekly = !expense.weekly"     ng-class="{'btn-success': expense.weekly == true, 'btn-danger': expense.weekly == false}">Weekly</button>
-                                </span></h3>
+                                    <span id="CategoryHeader">{{expense.category}} - {{expense.percentage}}%</span>
+                                    <button type="button" class="btn btn-default btn-xs" ng-click="hint = !hint">?</button>
+                                    <button type="button" class="btn btn-default btn-xs" ng-click="increase(expense)">+</button>
+                                    <button type="button" class="btn btn-default btn-xs" ng-click="decrease(expense)">-</button>
+                                </div>
+                            </div>
+                            <div ng-show="PreTaxIncome" class="row">
+                                <div class="col-xs-12">
+                                    <button type="button" class="btn btn-default btn-xs" ng-click="expense.yearly = !expense.yearly" ng-class="{'btn-success': expense.yearly == true, 'btn-danger': expense.yearly == false}">Yearly</button>
+                                    <button type="button" class="btn btn-default btn-xs" ng-click="expense.monthly = !expense.monthly" ng-class="{'btn-success': expense.monthly == true, 'btn-danger': expense.monthly == false}">Monthly</button>
+                                    <button type="button" class="btn btn-default btn-xs" ng-click="expense.biweekly = !expense.biweekly" ng-class="{'btn-success': expense.biweekly == true, 'btn-danger': expense.biweekly == false}">Biweekly</button>
+                                    <button type="button" class="btn btn-default btn-xs" ng-click="expense.weekly = !expense.weekly" ng-class="{'btn-success': expense.weekly == true, 'btn-danger': expense.weekly == false}">Weekly</button>
                                     <div ng-show="hint" class="well well-sm">{{expense.description}}</div>
                                 </div>
                             </div>
