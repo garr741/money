@@ -1,7 +1,28 @@
-var app = angular.module('BuildMeABudget', ['chart.js']);
+var app = angular.module('BuildMeABudget', ['chart.js', 'firebase']);
 
 
-app.controller('BudgetController', ['$scope', 'Category', function($scope, Category) {
+app.controller('BudgetController', ['$scope', 'Category','$firebaseObject', '$firebaseArray', function($scope, Category, $firebaseObject, $firebaseArray) {
+    var ref = new Firebase("https://tylorgarrett.firebaseio.com");
+    var childRef = ref.child("BMAB");
+
+    var userData = $firebaseArray(childRef);
+
+    $scope.SaveUserInfo = function(UserID){
+        userData.$add({
+            id: UserID,
+            income: $scope.PreTaxIncome,
+            h: housing.getPercentage(),
+            u: utilities.getPercentage(),
+            t: transportation.getPercentage(),
+            f: food.getPercentage(),
+            c: clothing.getPercentage(),
+            s: savings.getPercentage(),
+            d: debts.getPercentage(),
+            p: personal.getPercentage(),
+            m: health.getPercentage()
+        });
+    }
+
     var income = $scope.PreTaxIncome;
     var housingPercentage = 30;
     var utilitiesPercentage = 10;
