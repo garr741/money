@@ -43,8 +43,9 @@
                                 </div>
                             </form>
                             <form name="UserIDForm" ng-submit="GetUserInfoByID(UserID)">
-                                <div class="form-group" ng-show="!PreTaxIncome">
-                                    <input name="UserID" class="form-control" ng-model="UserID" placeholder="User ID"  />
+                                <div ng-class="results" class="has-feedback form-group " ng-show="!PreTaxIncome">
+                                    <input name="UserID" class="form-control" ng-model="UserID" placeholder="User ID">
+                                    <span ng-class="feedback" class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                 </div>
                             </form>
                             <div ng-show="PreTaxIncome" class="row">
@@ -123,10 +124,11 @@
                         </div>
                     </div>
                     <div class="row" ng-show="PreTaxIncome">
-                        <div class="col-xs-4 col-xs-offset-4">
+                        <div ng-class="results" class="col-xs-4 col-xs-offset-4 has-feedback">
                             <form class="form-horizontal" ng-submit="SaveUserInfo(UserID)">
                                 <div class="form-group">
                                     <input name="UserID" class="form-control" ng-model="UserID" placeholder="User ID for previous settings">
+                                    <span ng-class="feedback" class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                 </div>
                             </form>
                         </div>

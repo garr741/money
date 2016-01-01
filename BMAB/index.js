@@ -41,30 +41,47 @@ app.controller('BudgetController', ['$scope', 'Category','$firebaseObject', '$fi
             d: debts.getPercentage(),
             p: personal.getPercentage(),
             m: health.getPercentage()
+        }).then(function(ref){
+            $scope.results = "has-success";
+            $scope.feedback  = "glyphicon-ok";
+        }, function(error){
+            $scope.results = "has-error";
+            $scope.feedback  = "glyphicon-remove";
         });
     }
 
     $scope.GetUserInfoByID = function(UserID){
+        var key = null;
         userData.map(function(obj){
             if ( obj.id == UserID ){
-                $scope.PreTaxIncome = obj.income;
-                income = obj.income;
-                housing.setPercentage(obj.h);
-                utilities.setPercentage(obj.u);
-                transportation.setPercentage(obj.t);
-                food.setPercentage(obj.f);
-                savings.setPercentage(obj.s);
-                clothing.setPercentage(obj.c);
-                debts.setPercentage(obj.d);
-                personal.setPercentage(obj.p);
-                health.setPercentage(obj.m);
+                key = obj.$id;
+                return;
             }
         });
-        updateListOfPercentages();
+        var obj = userData.$getRecord(key);
+        if ( obj == null ){
+            console.log("Data with that ID could not be found")
+            $scope.results = "has-error";
+            $scope.feedback  = "glyphicon-remove";
+        } else {
+            $scope.PreTaxIncome = obj.income;
+            income = obj.income;
+            housing.setPercentage(obj.h);
+            utilities.setPercentage(obj.u);
+            transportation.setPercentage(obj.t);
+            food.setPercentage(obj.f);
+            savings.setPercentage(obj.s);
+            clothing.setPercentage(obj.c);
+            debts.setPercentage(obj.d);
+            personal.setPercentage(obj.p);
+            health.setPercentage(obj.m);
+            updateListOfPercentages();
+            console.log("Data updated")
+        }
     }
 
     var saveData = function(UserID, obj, index){
-        obj.id = UserID,
+        obj.id = UserID;
         obj.income = $scope.PreTaxIncome;
         obj.h = housing.getPercentage();
         obj.u = utilities.getPercentage();
@@ -75,7 +92,15 @@ app.controller('BudgetController', ['$scope', 'Category','$firebaseObject', '$fi
         obj.d = debts.getPercentage();
         obj.p = personal.getPercentage();
         obj.m = health.getPercentage();
-        userData.$save(index);
+        userData.$save(index).then(function(ref){
+            console.log(ref)
+            $scope.results = "has-success";
+            $scope.feedback  = "glyphicon-ok";
+        }, function(error){
+            console.log(error);
+            $scope.results = "has-error";
+            $scope.feedback  = "glyphicon-remove";
+        });
     }
 
 
