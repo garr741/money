@@ -60,6 +60,7 @@ app.controller('BudgetController', ['$scope', 'Category','$firebaseObject', '$fi
                 health.setPercentage(obj.m);
             }
         });
+        updateListOfPercentages();
     }
 
     var saveData = function(UserID, obj, index){
