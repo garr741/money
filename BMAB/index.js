@@ -7,7 +7,28 @@ app.controller('BudgetController', ['$scope', 'Category','$firebaseObject', '$fi
 
     var userData = $firebaseArray(childRef);
 
+    var income = $scope.PreTaxIncome;
+    var housingPercentage = 30;
+    var utilitiesPercentage = 10;
+    var transportationPercentage = 15;
+    var foodPercentage = 10;
+    var savingsPercentage = 10;
+    var clothingPercentage = 5;
+    var debtsPercentage = 10;
+    var personalPercentage = 5;
+    var medicalPercentage = 5;
+
     $scope.SaveUserInfo = function(UserID){
+        var userFound = false;
+        userData.map(function(obj, index){
+            if (obj.id == UserID){
+                userFound = true;
+                saveData(UserID, obj, index);
+            }
+        })
+        if ( userFound ){
+            return;
+        }
         userData.$add({
             id: UserID,
             income: $scope.PreTaxIncome,
@@ -23,16 +44,38 @@ app.controller('BudgetController', ['$scope', 'Category','$firebaseObject', '$fi
         });
     }
 
-    var income = $scope.PreTaxIncome;
-    var housingPercentage = 30;
-    var utilitiesPercentage = 10;
-    var transportationPercentage = 15;
-    var foodPercentage = 10;
-    var savingsPercentage = 10;
-    var clothingPercentage = 5;
-    var debtsPercentage = 10;
-    var personalPercentage = 5;
-    var medicalPercentage = 5;
+    $scope.GetUserInfoByID = function(UserID){
+        userData.map(function(obj){
+            if ( obj.id == UserID ){
+                $scope.PreTaxIncome = obj.income;
+                income = obj.income;
+                housing.setPercentage(obj.h);
+                utilities.setPercentage(obj.u);
+                transportation.setPercentage(obj.t);
+                food.setPercentage(obj.f);
+                savings.setPercentage(obj.s);
+                clothing.setPercentage(obj.c);
+                debts.setPercentage(obj.d);
+                personal.setPercentage(obj.p);
+                health.setPercentage(obj.m);
+            }
+        });
+    }
+
+    var saveData = function(UserID, obj, index){
+        obj.id = UserID,
+        obj.income = $scope.PreTaxIncome;
+        obj.h = housing.getPercentage();
+        obj.u = utilities.getPercentage();
+        obj.t = transportation.getPercentage();
+        obj.f = food.getPercentage();
+        obj.c = clothing.getPercentage();
+        obj.s = savings.getPercentage();
+        obj.d = debts.getPercentage();
+        obj.p = personal.getPercentage();
+        obj.m = health.getPercentage();
+        userData.$save(index);
+    }
 
 
     var housing = new Category("Housing", "mortgage / taxes / rent / insurance", housingPercentage, true, true, true, true);

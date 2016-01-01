@@ -36,7 +36,15 @@
                         <div class="panel-body">
                             <form name="BudgetForm">
                                 <div class="form-group">
-                                    <input name="PreTaxIncome" class="form-control" ng-model="PreTaxIncome" type="number" placeholder="Gross Annual Income (before taxes)" required>
+                                    <input name="PreTaxIncome" class="form-control" ng-model="PreTaxIncome" type="number" placeholder="Gross Annual Income (before taxes)" required />
+                                </div>
+                                <div class="text-center" ng-show="!PreTaxIncome">
+                                    <h3>Load your settings with the previous ID</h3>
+                                </div>
+                            </form>
+                            <form name="UserIDForm" ng-submit="GetUserInfoByID(UserID)">
+                                <div class="form-group" ng-show="!PreTaxIncome">
+                                    <input name="UserID" class="form-control" ng-model="UserID" placeholder="User ID"  />
                                 </div>
                             </form>
                             <div ng-show="PreTaxIncome" class="row">
@@ -117,15 +125,14 @@
                     <div class="row" ng-show="PreTaxIncome">
                         <div class="col-xs-4 col-xs-offset-4">
                             <form class="form-horizontal" ng-submit="SaveUserInfo(UserID)">
-                            <div class="form-group">
-                                <input name="UserID" class="form-control" ng-model="UserID" placeholder="User ID for previous settings">
-                            </div>
-                        </form>
+                                <div class="form-group">
+                                    <input name="UserID" class="form-control" ng-model="UserID" placeholder="User ID for previous settings">
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>
