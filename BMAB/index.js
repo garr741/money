@@ -13,9 +13,8 @@ app.controller('BudgetController', ['$scope', 'Category','$firebaseObject', '$fi
     var transportationPercentage = 15;
     var foodPercentage = 10;
     var savingsPercentage = 10;
-    var clothingPercentage = 5;
     var debtsPercentage = 10;
-    var personalPercentage = 5;
+    var personalPercentage = 10;
     var medicalPercentage = 5;
 
     $scope.SaveUserInfo = function(UserID){
@@ -36,7 +35,6 @@ app.controller('BudgetController', ['$scope', 'Category','$firebaseObject', '$fi
             u: utilities.getPercentage(),
             t: transportation.getPercentage(),
             f: food.getPercentage(),
-            c: clothing.getPercentage(),
             s: savings.getPercentage(),
             d: debts.getPercentage(),
             p: personal.getPercentage(),
@@ -71,7 +69,6 @@ app.controller('BudgetController', ['$scope', 'Category','$firebaseObject', '$fi
             transportation.setPercentage(obj.t);
             food.setPercentage(obj.f);
             savings.setPercentage(obj.s);
-            clothing.setPercentage(obj.c);
             debts.setPercentage(obj.d);
             personal.setPercentage(obj.p);
             health.setPercentage(obj.m);
@@ -87,7 +84,6 @@ app.controller('BudgetController', ['$scope', 'Category','$firebaseObject', '$fi
         obj.u = utilities.getPercentage();
         obj.t = transportation.getPercentage();
         obj.f = food.getPercentage();
-        obj.c = clothing.getPercentage();
         obj.s = savings.getPercentage();
         obj.d = debts.getPercentage();
         obj.p = personal.getPercentage();
@@ -103,17 +99,14 @@ app.controller('BudgetController', ['$scope', 'Category','$firebaseObject', '$fi
         });
     }
 
-
-    var housing = new Category("Housing", "mortgage / taxes / rent / insurance", housingPercentage, true, true, true, true);
-    var utilities = new Category("Utilities", "phone / cell phone / gas / cable / internet", utilitiesPercentage, true, true, true, true);
+    var housing = new Category("Housing", "mortgage / taexs / rent / insurance", housingPercentage, true, true, true, true);
+    var utilities = new Category("Utilities", "phone / electricity / gas / cable / internet / water", utilitiesPercentage, true, true, true, true);
     var transportation = new Category("Transportation", "bus / taxi / gas / insurance / maintenance / parking", transportationPercentage, true, true, true, true);
     var food = new Category("Food", "groceries / personal care", foodPercentage, true, true, true, true)
-    var clothing = new Category("Clothing", "Shopping", clothingPercentage, true, true, true, true)
-    var personal = new Category("Personal and Entertainment", "entertainment / recreation / alcohol / eating out / gaming / hair cuts / hobbies / amazon / netflix", personalPercentage, true, true, true, true)
+    var personal = new Category("Personal and Entertainment", "entertainment / recreation / alcohol / eating out / gaming / hair cuts / hobbies / amazon / netflix / shopping", personalPercentage, true, true, true, true)
     var health = new Category("Health", "health care premiums / medications", medicalPercentage, true, true, true, true)
     var savings = new Category("Savings", "Savings / Emergency Fund / Retirement / Investments", savingsPercentage, true, true, true, true)
     var debts = new Category("Debts", "Loans / Credit Cards / Medical Bills", debtsPercentage, true, true, true, true)
-
 
     $scope.hint = false;
     $scope.totalPercentage = 100;
@@ -122,14 +115,13 @@ app.controller('BudgetController', ['$scope', 'Category','$firebaseObject', '$fi
         utilities,
         transportation,
         food,
-        clothing,
         personal,
         health,
         savings,
         debts
     ]
 
-    $scope.listOfPercentages = [housing.getPercentage(), utilities.getPercentage(), transportation.getPercentage(), food.getPercentage(), clothing.getPercentage(), personal.getPercentage(), health.getPercentage(), savings.getPercentage(), debts.getPercentage()];
+    $scope.listOfPercentages = [housing.getPercentage(), utilities.getPercentage(), transportation.getPercentage(), food.getPercentage(), personal.getPercentage(), health.getPercentage(), savings.getPercentage(), debts.getPercentage()];
 
     $scope.PostTaxIncome = function() {
         if ($scope.PreTaxIncome < 9225) {
@@ -205,13 +197,9 @@ app.controller('BudgetController', ['$scope', 'Category','$firebaseObject', '$fi
     }
 
     $scope.labels = [
-        housing.getCategory(), utilities.getCategory(), transportation.getCategory(), food.getCategory(), clothing.getCategory(), personal.getCategory(), health.getCategory(), savings.getCategory(), debts.getCategory()
+        housing.getCategory(), utilities.getCategory(), transportation.getCategory(), food.getCategory(), personal.getCategory(), health.getCategory(), savings.getCategory(), debts.getCategory()
     ]
 
     $scope.data = $scope.listOfPercentages;
-
-
-
-
 
 }]);
